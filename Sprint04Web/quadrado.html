@@ -9,10 +9,23 @@
         border: 1px solid #000;
       }
     </style>
+    <link rel="stylesheet" href="./css/style.css">
   </head>
 
   <body>
     <canvas id="canvas" width="1000" height="500"></canvas>
+    <div>
+      <h1>HP:</h1>
+      <h1>Robo 1: <span id="hp1"></span></h1>
+      <h1>Robo 2: <span id="hp2"></span></h1>
+      <h1>Colisões: <span id="nColisao"></span></h1>
+
+      <div class="playAgain">
+        <h1>Vencedor: <span id="vencedor"></span></h1>
+        <button id="playAgain">JOGAR NOVAMENTE</button>
+      </div>
+      
+    </div>
     <script type="text/javascript" src="./js/quadrado.js"></script>
     <script type="text/javascript" src="./js/funcoes.js"></script>
   </body>

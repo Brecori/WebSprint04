@@ -2,6 +2,9 @@
   const cnv = document.querySelector('#canvas');
   const ctx = cnv.getContext('2d');
 
+  //vencedor
+  let vencedor;
+
   //movimentos
   let moveLeft = false;
   let moveUp = false;
@@ -151,6 +154,10 @@
     
   }
 
+  
+    
+  
+
   function detectarColisao() {
     if ((quadrado1.posX + quadrado1.width) > quadrado4.posX && quadrado1.posX < (quadrado4.posX + quadrado4.width) && ((quadrado1.posY + quadrado1.height) > quadrado4.posY && quadrado1.posY < (quadrado4.posY + quadrado4.height)
     ))
@@ -188,15 +195,36 @@
       quadrado4.posY = 420;
       
     }
-    
-    if (colisao == 5) {
-      ctx.clearRect(0, 0, cnv.width, cnv.height);
-      window.requestAnimationFrame(atualizarTela, cnv);
-    
-    exibirQuadrados();
-    detectarColisao();
-    }
 
+    if (colisao >= 5) {
+  
+      document.querySelector(".playAgain").style.display = "block";
+      if(hpRobo1 > hpRobo2) {
+        vencedor = "Robô 1";
+      }
+      else if (hpRobo2 > hpRobo1) {
+        vencedor = "Robô 2"
+      }
+      else {
+        vencedor = "empate"
+      }
+      document.querySelector("#vencedor").textContent = vencedor;
+      blockMove()
+    }
+    
+  }
+
+ 
+
+  function blockMove() {
+    quadrado1.velocidade = 0;
+    quadrado4.velocidade = 0;
+  }
+
+  function score(hpRobo1, hpRobo2) {
+    document.querySelector("#hp1").textContent = hpRobo1;
+    document.querySelector("#hp2").textContent = hpRobo2;
+    document.querySelector("#nColisao").textContent = colisao;
   }
 
 
@@ -207,6 +235,13 @@
       ctx.fillStyle = spr.color
       ctx.fillRect(spr.posX, spr.posY, spr.width, spr.height);
     }
+    
+  }
+
+  function jogarNovamente() {
+    document.querySelector("#playAgain").onclick = function() {
+      document.location.reload()
+    }
   }
   //solicitar uma animação ao browser e chamar a função
   //que é a propria função atualizarTela
@@ -216,6 +251,9 @@
     moverQuadrado4();
     exibirQuadrados();
     detectarColisao();
+    score(hpRobo1, hpRobo2);
+    jogarNovamente();
+   
   }
   atualizarTela();
 
