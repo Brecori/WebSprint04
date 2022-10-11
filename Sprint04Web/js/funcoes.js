@@ -200,13 +200,13 @@
   
       document.querySelector(".playAgain").style.display = "block";
       if(hpRobo1 > hpRobo2) {
-        vencedor = "Robô 1";
+        vencedor = "Laranja";
       }
       else if (hpRobo2 > hpRobo1) {
-        vencedor = "Robô 2"
+        vencedor = "Amarelo"
       }
       else {
-        vencedor = "empate"
+        vencedor = "Empate"
       }
       document.querySelector("#vencedor").textContent = vencedor;
       blockMove()
