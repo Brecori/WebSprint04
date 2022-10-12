@@ -2,6 +2,7 @@
   const cnv = document.querySelector('#canvas');
   const ctx = cnv.getContext('2d');
 
+
   //vencedor
   let vencedor;
 
@@ -25,17 +26,28 @@
   // arrays
   const quadrados = [];
 
+
+  const quadrado1img = new Image();
+  quadrado1img.src = '../images/kisspng-robot-animation-sprite-2d-computer-graphics-game-robot-5ac4ef3f5b5b85.6464353915228557433742.png'
+ 
+
+  const quadrado2img = new Image();
+  quadrado2img.src = '../images/picwish.png'
+
+  const quadrado3img = new Image();
+  quadrado3img.src = '../images/Lava.png'
+
   // quadrados
-  const quadrado1 = new quadrado(20, 10, 50, 70, "#f60", 5);
+  const quadrado1 = new quadrado(20, 30, 50, 70, "transparent", 5);
   quadrados.push(quadrado1);
 
-  const quadrado2 = new quadrado(100, 120, 550, 50, "#000", 0);
+  const quadrado2 = new quadrado(100, 120, 500, 50, "transparent", 0);
   quadrados.push(quadrado2);
 
-  const quadrado3 = new quadrado(400, 350, 500, 50, "#000", 0);
+  const quadrado3 = new quadrado(400, 350, 500, 50, "transparent", 0);
   quadrados.push(quadrado3);
 
-  const quadrado4 = new quadrado(930, 420, 50, 70, "#caf620", 5);
+  const quadrado4 = new quadrado(930, 410, 50, 70, "transparent", 5);
   quadrados.push(quadrado4);
 
   // pressionar as teclas
@@ -57,6 +69,9 @@
         break;
     }
   });
+ 
+
+
 
   window.addEventListener('keydown', function (d) {
     const nomeKeyD = d.key;
@@ -175,32 +190,36 @@
     //colisao blocos quadrado1
     if ((quadrado1.posX + quadrado1.width) > quadrado2.posX && quadrado1.posX < (quadrado2.posX + quadrado2.width) && (quadrado1.posY + quadrado1.height) > quadrado2.posY && quadrado1.posY < (quadrado2.posY + quadrado2.height)) {
       quadrado1.posX = 20;
-      quadrado1.posY = 10;
+      quadrado1.posY = 30;
+      hpRobo1 -= Math.floor(Math.random()*5)
       
     }
     if ((quadrado1.posX + quadrado1.width) > quadrado3.posX && quadrado1.posX < (quadrado3.posX + quadrado3.width) && (quadrado1.posY + quadrado1.height) > quadrado3.posY && quadrado1.posY < (quadrado3.posY + quadrado3.height)) {
       quadrado1.posX = 20;
-      quadrado1.posY = 10;
-      
+      quadrado1.posY = 30;
+      hpRobo1 -= Math.floor(Math.random()*5)
+
     }
 
     //colisao blocos quadrado4
     if ((quadrado4.posX + quadrado4.width) > quadrado2.posX && quadrado4.posX < (quadrado2.posX + quadrado2.width) && (quadrado4.posY + quadrado4.height) > quadrado2.posY && quadrado4.posY < (quadrado2.posY + quadrado2.height)) {
       quadrado4.posX = 930;
-      quadrado4.posY = 420;
-      
+      quadrado4.posY = 410;
+      hpRobo2 -= Math.floor(Math.random()*5)
+
     }
     if ((quadrado4.posX + quadrado4.width) > quadrado3.posX && quadrado4.posX < (quadrado3.posX + quadrado3.width) && (quadrado4.posY + quadrado4.height) > quadrado3.posY && quadrado4.posY < (quadrado3.posY + quadrado3.height)) {
       quadrado4.posX = 930;
-      quadrado4.posY = 420;
-      
+      quadrado4.posY = 410;
+      hpRobo2 -= Math.floor(Math.random()*5)
+
     }
 
     if (colisao >= 5) {
   
       document.querySelector(".playAgain").style.display = "block";
       if(hpRobo1 > hpRobo2) {
-        vencedor = "Laranja";
+        vencedor = "Azul";
       }
       else if (hpRobo2 > hpRobo1) {
         vencedor = "Amarelo"
@@ -210,6 +229,21 @@
       }
       document.querySelector("#vencedor").textContent = vencedor;
       blockMove()
+    }
+
+    if (hpRobo1 <= 0) {
+      document.querySelector(".playAgain").style.display = "block";
+      hpRobo1 = 0;
+      vencedor = "Amarelo"
+      document.querySelector("#vencedor").textContent = vencedor;
+      blockMove();
+    }
+    if (hpRobo2 <= 0) {
+      hpRobo2 = 0;
+      document.querySelector(".playAgain").style.display = "block";
+      vencedor = "Azul"
+      document.querySelector("#vencedor").textContent = vencedor;
+      blockMove();
     }
     
   }
@@ -234,6 +268,10 @@
       const spr = quadrados[i];
       ctx.fillStyle = spr.color
       ctx.fillRect(spr.posX, spr.posY, spr.width, spr.height);
+      ctx.drawImage(quadrado1img, quadrado1.posX, quadrado1.posY, quadrado1.width,quadrado1.height)
+      ctx.drawImage(quadrado2img, quadrado4.posX, quadrado4.posY, quadrado4.width,quadrado4.height)
+      ctx.drawImage(quadrado3img, quadrado3.posX, quadrado3.posY, quadrado3.width,quadrado3.height)
+      ctx.drawImage(quadrado3img, quadrado2.posX, quadrado2.posY, quadrado2.width,quadrado2.height)
     }
     
   }
@@ -253,8 +291,15 @@
     detectarColisao();
     score(hpRobo1, hpRobo2);
     jogarNovamente();
+      // When it loads
+  
+    
    
   }
+  
+  
+
+  
   atualizarTela();
 
 }());

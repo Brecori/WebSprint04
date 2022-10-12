@@ -1,5 +1,6 @@
 body {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    background-color: rgb(53, 12, 25);
 }
 
 button {
@@ -28,11 +29,14 @@ button:hover {
    display: flex;
    flex-direction: column;
    justify-content: center;
+   color: white;
 }
 
-#canvas{
 
-    border: 1px solid #333;
-    background-color: #aaaaaa;
+
+#canvas{
+    border: 5px solid #333;
+    background-image: url(../images/Background.png);
+    background-size: contain;
     margin: 10px;
 }

@@ -24,3 +24,4 @@ quadrado.prototype.centerX = function(){
 quadrado.prototype.centerY = function(){
 	return this.posY + this.halfHeight();
 }
+
